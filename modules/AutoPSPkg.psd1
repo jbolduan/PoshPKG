@@ -12,6 +12,15 @@
 	NestedModules = @(
 		"AutoPSPkg-InstallerHandlers.psm1"
 	)
+    
+	PrivateData = @{
+		PSData = @{
+			Tags = @('cooltag1', 'cooltag2')
+			LicenseUri = 'https://github.com/jbolduan/AutoPSPkg/blob/master/LICENSE'
+			ProjectUri = 'https://github.com/jbolduan/AutoPSPkg'
+			IconUri = 'https://github.com/jbolduan/AutoPSPkg/blob/master/assets/autopspkg_icon.png'
+		}
+	}
 
 	CmdletsToExport = '*'
 }
