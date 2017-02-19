@@ -22,7 +22,7 @@
     
 	PrivateData = @{
 		PSData = @{
-			Tags = @('cooltag1', 'cooltag2')
+			Tags = @('autopkg', 'packaging', 'sccm', 'config', 'manager', 'automation')
 			LicenseUri = 'https://github.com/jbolduan/PoshPKG/blob/master/LICENSE'
 			ProjectUri = 'https://github.com/jbolduan/PoshPKG'
 			IconUri = 'https://github.com/jbolduan/PoshPKG/blob/master/assets/PoshPKG_icon.png'
