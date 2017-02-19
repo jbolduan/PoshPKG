@@ -1,10 +1,5 @@
 #Requires -Modules 7Zip4PowerShell
 
-<#
-	TODO:
-		[x] Implement Expand-EXE
-		[ ] Implement Get-EXEProductVersion
-#>
 function Expand-EXE {
 	<#
 	.SYNOPSIS
@@ -20,7 +15,7 @@ function Expand-EXE {
 	.PARAMETER TempDestination
 		Temporary storage folder, by default it it $env:TEMP.
 	#>
-	
+
 	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory=$true)]
@@ -34,7 +29,7 @@ function Expand-EXE {
 	)
 	process {
 		if(-not (Test-Path -Path $TempDestination)) {
-			throw [System.IO.DirectoryNotFoundException]::new("Cannot find directory $TempDestination")
+			throw [System.IO.DirectoryNotFoundException]::new("Directory not found: $TempDestination")
 		} else {
 			if(-not (Test-Path -Path "$TempDestination\$Name")) {
 				New-Item -Path "$TempDestination\$Name" -ItemType Directory
@@ -48,18 +43,13 @@ function Expand-EXE {
 function Get-EXEProductVersion {
 	<#
 	.SYNOPSIS
-		Short description
+		Get's the product version of an EXE
 	.DESCRIPTION
-		Long description
+		Takes in the path to an EXE and returns the ProductVersion of that EXE
 	.EXAMPLE
-		PS C:\> <example usage>
-		Explanation of what the example does
-	.INPUTS
-		Inputs (if any)
-	.OUTPUTS
-		Output (if any)
-	.NOTES
-		General notes
+		Get-EXEProductVersion -Path C:\Temp\Setup.exe
+	.PARAMETER Path
+        Path to an executible
 	#>
 
 	[CmdletBinding()]
@@ -67,13 +57,11 @@ function Get-EXEProductVersion {
 		[Parameter(Mandatory=$true)]
 		[string]$Path
 	)
-	
-	begin {
-	}
-	
 	process {
-	}
-	
-	end {
+        if(-not (Test-Path -Path $Path)) {
+            throw [System.IO.FileNotFoundException]::new("File not found: $Path")
+        } else {
+            return [System.Version](Get-Item -Path $Path).VersionInfo.ProductVersion
+        }
 	}
 }
