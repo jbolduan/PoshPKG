@@ -62,4 +62,34 @@ function Get-EXEProductVersion {
             return [System.Version](Get-Item -Path $Path).VersionInfo.ProductVersion
         }
 	}
+function Get-RedirectedURL {
+	<#
+	.SYNOPSIS
+		Gets the real download URL from the redirection.
+	.DESCRIPTION
+		Used to get the real URL for downloading a file, this will not work if downloading the file directly.
+	.EXAMPLE
+		Get-RedirectedURL -URL "https://download.mozilla.org/?product=firefox-latest&os=win&lang=en-US"
+	.PARAMETER URL
+		URL for the redirected URL to be un-obfuscated
+	.NOTES
+		Code from: http://stackoverflow.com/questions/25125818/powershell-invoke-webrequest-how-to-automatically-use-original-file-name
+	#>
+
+	[CmdletBinding()]
+	param (
+		[Parameter(Mandatory=$true)]
+		[string]$URL
+	)
+	process {
+		$Request = [System.Net.WebRequest]::Create($URL)
+		$Request.AllowAutoRedirect=$false
+		$response = $Request.GetResponse()
+
+		if($response.StatusCode -eq "Found") {
+			return $response.GetResponseHeader("Location")
+		} else {
+			throw "Unable to get redirected url."
+		}
+	}
 }
