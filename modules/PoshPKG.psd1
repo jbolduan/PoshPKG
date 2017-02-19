@@ -8,6 +8,13 @@
 	ModuleVersion = '0.0.0.1'
 	PowerShellVersion = '5.0'
 	HelpInfoUri = "https://github.com/jbolduan/PoshPKG"
+	RequiredModules = @(
+		@{
+			ModuleName="7Zip4PowerShell"
+			ModuleVersion="1.8.0"
+			Guid="bd4390dc-a8ad-4bce-8d69-f53ccf8e4163"
+		}
+	)
 
 	NestedModules = @(
 		"PoshPKG-InstallerHandlers.psm1"

@@ -1,5 +1,3 @@
-#Requires -Modules 7Zip4PowerShell
-
 function Expand-EXE {
 	<#
 	.SYNOPSIS
