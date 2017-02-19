@@ -1,4 +1,4 @@
-# AutoPSPkg
+# PoshPKG
 AutoPKG for Windows using Powershell
 
 # Third Party Licenses
