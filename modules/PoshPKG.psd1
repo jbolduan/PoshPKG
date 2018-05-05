@@ -2,10 +2,10 @@
 
 	GUID = '2203ef95-fee5-4870-be6a-6cdee0d96199'
 	Author = 'Jeff Bolduan'
-	Description = 'Cmdlets for handling installer files and getting data from them for PoshPKG'
+	Description = 'PoshPKG is meant to be a Powershell auto packager like AutoPkg.'
 	CompanyName = 'N/A'
 	Copyright = '© 2017 Jeff Bolduan'
-	ModuleVersion = '0.0.0.1'
+	ModuleVersion = '0.1.0.0'
 	PowerShellVersion = '5.0'
 	HelpInfoUri = "https://github.com/jbolduan/PoshPKG"
 	RequiredModules = @(
@@ -17,7 +17,7 @@
 	)
 
 	NestedModules = @(
-		"PoshPKG-InstallerHandlers.psm1"
+		"PoshPKG.psm1"
 	)
     
 	PrivateData = @{
