@@ -13,6 +13,11 @@
 			ModuleName="7Zip4PowerShell"
 			ModuleVersion="1.8.0"
 			Guid="bd4390dc-a8ad-4bce-8d69-f53ccf8e4163"
+		},
+		@{
+			ModuleName="UMN-GitHub"
+			ModuleVersion="1.1.0"
+			Guid="37e43f2e-d2cf-4be9-8579-4a8e8b207584"
 		}
 	)
 
