@@ -9,7 +9,7 @@ function Get-RedirectedUri {
 	.PARAMETER URL
 		URL for the redirected URL to be un-obfuscated
 	.NOTES
-		Code from: http://www.powershellmagazine.com/2013/01/31/pstip-retrieve-a-redirected-url-powershell-3-0-way/
+		Code from: Redone per issue #2896 in core https://github.com/PowerShell/PowerShell/issues/2896
 	#>
 
     [CmdletBinding()]
@@ -18,9 +18,31 @@ function Get-RedirectedUri {
         [string]$Uri
     )
     process {
-		$request = Invoke-WebRequest -Uri $Uri -MaximumRedirection 0 -ErrorAction Ignore
-		if($requst.StatusDescription -eq "found") {
-			$request.Headers.Location
-		}
+        do {
+            try {
+                $request = Invoke-WebRequest -Method Head -Uri $Uri
+                if ($request.BaseResponse.ResponseUri -ne $null) {
+                    # This is for Powershell 5
+                    $redirectUri = $request.BaseResponse.ResponseUri.AbsoluteUri
+                }
+                elseif ($request.BaseResponse.RequestMessage.RequestUri -ne $null) {
+                    # This is for Powershell core
+                    $redirectUri = $request.BaseResponse.RequestMessage.RequestUri.AbsoluteUri
+                }
+			
+                $retry = $false
+            }
+            catch {
+                if (($_.Exception.GetType() -match "HttpResponseException") -and ($_.Exception -match "302")) {
+                    $Uri = $_.Exception.Response.Headers.Location.AbsoluteUri
+                    $retry = $true
+                }
+                else {
+                    throw $_
+                }
+            }
+		} while ($retry)
+		
+		$redirectUri
     }
 }
